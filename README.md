@@ -12,6 +12,10 @@ Find the Content Useful? [You can always buy me a coffee](https://www.buymeacoff
 
 [Projects](https://www.vanillajavascriptprojects.com/)
 
+[Links]
+Project overview: https://www.freecodecamp.org/news/javascript-projects-for-beginners/ 
+Youtube: https://www.youtube.com/watch?v=3PHXvlpOkf4&t=1825s 
+
 1. Color Flipper
 2. Counter
 3. Reviews
