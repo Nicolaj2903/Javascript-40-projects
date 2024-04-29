@@ -199,9 +199,9 @@ nav {
   display: none;
 }
 .links {
-  /* height: 0;
+  height: 0;
   overflow: hidden;
-  transition: var(--transition); */
+  transition: var(--transition);
 }
 .show-links {
   height: 10rem;
@@ -222,7 +222,7 @@ nav {
     display: none;
   }
   .links {
-    height: auto;
+    height: auto;   /* IMPORT TO ADD */ 
     display: flex;
   }
   .links a {
