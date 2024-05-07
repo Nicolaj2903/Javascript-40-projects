@@ -1,3 +1,4 @@
+// items
 const menu = [
   {
     id: 1,
@@ -72,3 +73,33 @@ const menu = [
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
 ];
+
+// sectionsCenter is the parent element of the 'single menu items'
+const sectionCenter = document.querySelector(".section-center");
+
+// This eventListener is executed when the page is first loaded
+window.addEventListener('DOMContentLoaded', function() {
+  //.map() creates a new array from calling a funciton for every array element
+  let displayMenu = menu.map(function(arrayItem) {
+    // console.log(item);
+
+    return `<article class="menu-item">
+    <img src=${arrayItem.img} class="photo" alt=${arrayItem.title}>
+    <div class="item-info">
+      <header>
+        <h4>${arrayItem.title}</h4>
+        <h4 class="price">${arrayItem.price}</h4>
+      </header>
+      <p class="item-text">${arrayItem.desc}</p>
+  </article>`;
+  });
+
+  // Returns a string, consisting of all the items in the array 'menu'
+  displayMenu = displayMenu.join('');
+  sectionCenter.innerHTML = displayMenu; 
+  
+  // .innerHTML replaces the html code in index.html
+  // with the string (displayMenu), which is all the singular menu items in html format
+
+  console.log(displayMenu);
+});
