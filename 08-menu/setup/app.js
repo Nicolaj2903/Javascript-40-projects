@@ -72,34 +72,93 @@ const menu = [
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 10,
+    title: "steak dinner",
+    category: "dinner",
+    price: 39.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  }
 ];
 
 // sectionsCenter is the parent element of the 'single menu items'
 const sectionCenter = document.querySelector(".section-center");
+const buttonContainer = document.querySelector(".btn-container");
 
+// Load items
 // This eventListener is executed when the page is first loaded
-window.addEventListener('DOMContentLoaded', function() {
-  //.map() creates a new array from calling a funciton for every array element
-  let displayMenu = menu.map(function(arrayItem) {
+window.addEventListener('DOMContentLoaded', function () {
+  displayMenuItems(menu);
+  displayMenuButtons();
+});
+
+function displayMenuItems(menuItems) {
+  //.map() creates a new array from calling a function for every array element
+  let displayMenu = menuItems.map(function (menuItem) {
     // console.log(item);
 
     return `<article class="menu-item">
-    <img src=${arrayItem.img} class="photo" alt=${arrayItem.title}>
+    <img src=${menuItem.img} class="photo" alt=${menuItem.title}>
     <div class="item-info">
       <header>
-        <h4>${arrayItem.title}</h4>
-        <h4 class="price">${arrayItem.price}</h4>
+        <h4>${menuItem.title}</h4>
+        <h4 class="price">${menuItem.price}</h4>
       </header>
-      <p class="item-text">${arrayItem.desc}</p>
+      <p class="item-text">${menuItem.desc}</p>
   </article>`;
   });
 
   // Returns a string, consisting of all the items in the array 'menu'
   displayMenu = displayMenu.join('');
-  sectionCenter.innerHTML = displayMenu; 
-  
+  sectionCenter.innerHTML = displayMenu;
+
   // .innerHTML replaces the html code in index.html
   // with the string (displayMenu), which is all the singular menu items in html format
 
-  console.log(displayMenu);
-});
+  // console.log(displayMenu);
+}
+
+function displayMenuButtons() {
+  const categories = menu.reduce(
+    function (values, item) {
+      if (!values.includes(item.category)) {
+        values.push(item.category);
+      }
+      return values;
+    },
+    ["all"]
+  );
+
+  // Create a button for EACH UNIQUE category
+  const categoryBtns = categories.map(
+    function (category) {
+      return `<button class="filter-btn" type="button" data-id="${category}">${category}</button>`;
+    })
+    .join("");
+
+  buttonContainer.innerHTML = categoryBtns;
+  const filterBtns = document.querySelectorAll(".filter-btn");
+
+  // Filter items
+  filterBtns.forEach(function (button) {
+    button.addEventListener('click', function (event) {
+      // console.log(event.currentTarget.dataset.id);
+      const category = event.currentTarget.dataset.id;
+
+      const menuCategory = menu.filter(function (menuItem) {
+        // console.log(menuItem);
+        if (menuItem.category === category) {
+          return menuItem;
+        }
+      });
+
+      if (category === "all") {
+        displayMenuItems(menu);
+      }
+      else {
+        displayMenuItems(menuCategory);
+      }
+    });
+  });
+}
