@@ -1,6 +1,5 @@
 // Element.getBoundingClientRect() method returns the size of an element and its position relative to the viewport.
 // pageYOffset is a read - only window property that returns the number of pixels the document has been scrolled vertically.
-// slice extracts a section of a string without modifying original string
 //offsetTop - A Number, representing the top position of the element, in pixels
 
 // ********** set date ************
@@ -26,9 +25,68 @@ navToggle.addEventListener('click', function () {
 });
 
 // ********** fixed navbar ************
+const navBar = document.getElementById('nav');
+const topLink = document.querySelector(".top-link");
 
+window.addEventListener('scroll', function () {
+    const scrollHeight = this.window.pageYOffset;
+    const navHeight = navBar.getBoundingClientRect().height;
+
+    if (scrollHeight > navHeight) {
+        navBar.classList.add('fixed-nav');
+    }
+    else {
+        navBar.classList.remove('fixed-nav');
+    }
+
+    // Arbitrary number
+    if (scrollHeight > 500) {
+        topLink.classList.add('show-link');
+    }
+    else {
+        topLink.classList.remove('show-link');
+    }
+});
 
 // ********** smooth scroll ************
-
 // select links
+
+const scrollLinks = document.querySelectorAll('.scroll-link');
+
+scrollLinks.forEach(function (link) {
+    link.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // Navigate to specific spot
+        const id = event.currentTarget.getAttribute('href').slice(1); // slice() extracts a section of a string without modifying original string.
+        // In this example slice() simply removes the '#' from the href.  
+
+        const element = document.getElementById(id);
+
+        // Calculate the height
+        const fixedNav = navBar.classList.contains('fixed-nav');
+        const navHeight = navBar.getBoundingClientRect().height;
+        const containerHeight = linksContainer.getBoundingClientRect().height;
+        let position = element.offsetTop - navHeight;
+
+        // !fixedNav --> on a small screen
+        if (!fixedNav) {
+            position = position - navHeight;
+        }
+
+        // Why 82?
+        if (navHeight > 82) {
+            position = position + containerHeight;
+        }
+
+        window.scrollTo({
+            left: 0,
+            top: position
+        });
+
+        // Will close the nav bar upon clicking a link, for SMALL screens
+        linksContainer.style.height = 0;
+    });
+});
+
 
