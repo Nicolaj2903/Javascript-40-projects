@@ -186,8 +186,8 @@ function setupItems() {
       createListItem(item.id, item.value);
     });
     container.classList.add("show-container");
-  }
-}
+  };
+};
 
 function createListItem(id, value) {
   const element = document.createElement("article");
@@ -215,4 +215,4 @@ function createListItem(id, value) {
 
   // append child
   list.appendChild(element);
-}
+};
